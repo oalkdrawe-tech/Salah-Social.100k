@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: salah-social
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: VERIFY_CODE
+        sync: false

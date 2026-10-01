@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0d9488">
+<title>Salah Social</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--tx:#111827;--mu:#6b7280;--bd:#e5e7eb;--ac:#0d9488;--g:linear-gradient(135deg,#14b8a6,#6366f1 60%,#f59e0b)}
+[data-theme=dark]{--bg:#0b0f14;--card:#121821;--tx:#f3f4f6;--mu:#9ca3af;--bd:#222b38}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 system-ui,"Segoe UI",Tahoma,sans-serif}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:6px;position:relative}
+input,textarea,select{font:inherit;color:var(--tx);background:var(--bg);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;width:100%}
+.ic{width:24px;height:24px;display:block}.vb{width:15px;height:15px;vertical-align:-2px;margin-inline-start:3px}
+.logo{font-weight:800;font-size:22px;background:var(--g);-webkit-background-clip:text;background-clip:text;color:transparent}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top));background:var(--card);border-bottom:1px solid var(--bd)}
+.top div{display:flex;gap:4px}
+.nav{position:fixed;bottom:0;inset-inline:0;z-index:20;display:flex;justify-content:space-around;background:var(--card);border-top:1px solid var(--bd);padding:6px 0 calc(6px + env(safe-area-inset-bottom))}
+.nav .dsk,.lbl{display:none}.nav .on{color:var(--ac)}
+main{max-width:630px;margin:0 auto;padding:12px 0 90px}
+@media(min-width:900px){.top{display:none}.nav{inset:0 0 0 auto;width:230px;flex-direction:column;justify-content:flex-start;gap:6px;border-top:0;border-inline-start:1px solid var(--bd);padding:24px 12px}.nav .dsk{display:flex}.nav button{display:flex;gap:14px;align-items:center;padding:12px;border-radius:12px}.nav button:hover{background:var(--bg)}.lbl{display:inline}main{margin-inline-start:230px;max-width:none;padding:20px max(20px,calc((100% - 230px - 630px)/2)) 40px}.reels{height:calc(100dvh - 40px)!important}}
+.card,.box{background:var(--card);border:1px solid var(--bd);border-radius:14px;margin:0 0 16px;overflow:hidden}
+@media(max-width:600px){.card{border-radius:0;border-inline:0}}
+.card header{display:flex;align-items:center;gap:10px;padding:10px 12px}.card header .muted{margin-inline-start:auto}
+.card img,.card video{width:100%;max-height:75vh;object-fit:cover;display:block;background:#000}
+.card>p,.lk,.lnk{padding:0 12px;margin:4px 0}.lnk{display:block}
+.acts{display:flex;padding:6px 8px}.acts .sv{margin-inline-start:auto}.acts .on{color:#ef4444}.acts .sv.on{color:var(--tx)}
+.muted{color:var(--mu);font-size:13px}
+.av{width:36px;height:36px;border-radius:50%;object-fit:cover;background:var(--g);color:#fff;display:grid;place-items:center;font-weight:700;flex:none}
+.stories{display:flex;gap:14px;overflow-x:auto;padding:4px 12px 14px;scrollbar-width:none}
+.st{display:flex;flex-direction:column;align-items:center;gap:4px;width:70px;flex:none;font-size:12px}
+.ring{padding:3px;border-radius:50%;background:var(--g)}.ring .av{border:3px solid var(--card)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}.grid a{aspect-ratio:1;background:#000}.grid img,.grid video{width:100%;height:100%;object-fit:cover;display:block}
+.btn{background:var(--ac);color:#fff;border-radius:10px;padding:9px 16px;font-weight:600;display:inline-block}.btn.sec{background:var(--bd);color:var(--tx)}.btn:disabled{opacity:.6}
+.ov{position:fixed;inset:0;background:#000a;z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.sheet{background:var(--card);width:100%;max-width:520px;max-height:88vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px}
+@media(min-width:600px){.ov{align-items:center}.sheet{border-radius:18px}}
+.row{display:flex;align-items:center;gap:10px;padding:8px 0}
+.reels{height:calc(100dvh - 130px);overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none}
+.reel{height:100%;scroll-snap-align:start;position:relative;background:#000;border-radius:14px;margin-bottom:10px;overflow:hidden;color:#fff}.reel video{width:100%;height:100%;object-fit:cover}
+.reel .meta{position:absolute;bottom:14px;inset-inline:14px 64px;text-shadow:0 1px 4px #000}.reel .acts{position:absolute;bottom:14px;inset-inline-end:4px;flex-direction:column}.reel .acts .sv.on{color:#fff}
+.chat{display:flex;flex-direction:column;gap:6px;padding:12px;min-height:50vh}.b{max-width:75%;padding:8px 12px;border-radius:16px;background:var(--bd);align-self:flex-start;word-break:break-word}.b.me{align-self:flex-end;background:var(--ac);color:#fff}
+.dot::after{content:"";position:absolute;top:4px;inset-inline-end:6px;width:9px;height:9px;border-radius:50%;background:#ef4444}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#111;color:#fff;padding:10px 16px;border-radius:12px;z-index:99}
+.auth{max-width:380px;margin:8vh auto;padding:24px}.auth .logo{font-size:38px;text-align:center}.auth form{display:grid;gap:10px;margin-top:14px}
+.err{color:#ef4444;font-size:13px;min-height:18px}
+.sv2{position:fixed;inset:0;background:#000;z-index:60;display:grid;place-items:center}.sv2 img,.sv2 video{max-width:100%;max-height:100%}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+const $=s=>document.querySelector(s);
+let me=null,es=null;
+const I={
+home:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+reels:'<rect x="3" y="3" width="18" height="18" rx="4"/><path d="M3 9h18M9 3l3 6M15 3l3 6"/><path d="M10.5 13l4 2.5-4 2.5z"/>',
+plus:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/>',
+heart:'<path d="M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z"/>',
+comment:'<path d="M21 12a8 8 0 0 1-11.7 7L4 20l1.2-4.6A8 8 0 1 1 21 12z"/>',
+send:'<path d="M22 3L11 14M22 3l-7 18-4-7-7-4z"/>',
+save:'<path d="M6 3h12v18l-6-4-6 4z"/>',
+bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/>',
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+moon:'<path d="M21 13A9 9 0 1 1 11 3a7 7 0 0 0 10 10z"/>',
+x:'<path d="M5 5l14 14M19 5L5 19"/>'};
+const ic=(n,f)=>`<svg class="ic" viewBox="0 0 24 24" fill="${f?'currentColor':'none'}" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${I[n]}</svg>`;
+const badge=v=>v?'<svg class="vb" viewBox="0 0 24 24"><path fill="#1d9bf0" d="M12 1l3 2.2 3.7-.3 1.2 3.5 3 2.1-1.1 3.6 1.1 3.6-3 2.1-1.2 3.5-3.7-.3L12 23l-3-2.2-3.7.3-1.2-3.5-3-2.1L2.2 12 1.1 8.4l3-2.1 1.2-3.5 3.7.3z"/><path d="M8 12.2l3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>':'';
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ago=t=>{const s=(Date.now()-t)/1000;return s<60?'الآن':s<3600?`${~~(s/60)}د`:s<86400?`${~~(s/3600)}س`:`${~~(s/86400)}ي`};
+const av=(u,s)=>{const st=s?`style="width:${s}px;height:${s}px"`:'';return u.avatar?`<img class="av" ${st} src="${esc(u.avatar)}" alt="">`:`<div class="av" ${st}>${esc((u.username||'?')[0]).toUpperCase()}</div>`};
+const api=async(p,m='GET',b)=>{const r=await fetch('/api'+p,{method:m,headers:b?{'Content-Type':'application/json'}:{},body:b?JSON.stringify(b):undefined});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'حدث خطأ');return d};
+const upload=async f=>{const r=await fetch('/api/upload',{method:'POST',headers:{'Content-Type':f.type},body:f});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'فشل الرفع');return d};
+const toast=t=>{const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.append(e);setTimeout(()=>e.remove(),2500)};
+const modal=h=>{const o=document.createElement('div');o.className='ov';o.innerHTML=`<div class="sheet">${h}</div>`;o.onclick=e=>{if(e.target===o)o.remove()};document.body.append(o);return o};
+const setTheme=()=>{const t=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=t;localStorage.theme=t;$('meta[name=theme-color]').content=t==='dark'?'#0b0f14':'#0d9488'};
+document.documentElement.dataset.theme=localStorage.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+
+const acts=p=>`<button data-a="like" class="${p.liked?'on':''}">${ic('heart',p.liked)}</button><button data-a="cmt">${ic('comment')}</button><button data-a="share">${ic('send')}</button><button data-a="save" class="sv ${p.saved?'on':''}">${ic('save',p.saved)}</button>`;
+const card=p=>`<article class="card" data-id="${p.id}"><header>${av(p)}<a href="#/u/${esc(p.username)}"><b>${esc(p.username)}</b>${badge(p.verified)}</a><span class="muted">${ago(p.created)}</span>${p.username===me.username?'<button data-a="del" class="muted">حذف</button>':''}</header>${p.type==='video'?`<video src="${esc(p.media)}" controls playsinline loop preload="metadata"></video>`:`<img src="${esc(p.media)}" loading="lazy" alt="">`}<div class="acts">${acts(p)}</div><div class="lk"><b>${p.likes}</b> إعجاب</div>${p.caption?`<p><b>${esc(p.username)}</b> ${esc(p.caption)}</p>`:''}<button class="muted lnk" data-a="cmt">${p.comments?`عرض ${p.comments} تعليق`:'أضف تعليقًا'}</button></article>`;
+const userRow=u=>`<a class="row" style="padding:8px 14px" href="#/u/${esc(u.username)}">${av(u,44)}<div><b>${esc(u.username)}</b>${badge(u.verified)}<div class="muted">${esc(u.name)}</div></div></a>`;
+const gridItems=ps=>ps.length?ps.map(p=>`<a href="#/p/${p.id}">${p.type==='video'?`<video src="${esc(p.media)}#t=0.1" muted preload="metadata"></video>`:`<img src="${esc(p.media)}" loading="lazy" alt="">`}</a>`).join(''):'<p class="muted" style="grid-column:1/-1;text-align:center;padding:30px">لا يوجد محتوى بعد.</p>';
+
+// ---------- auth ----------
+function authView(mode='login'){const reg=mode==='register';
+$('#root').innerHTML=`<div class="auth box"><div class="logo">Salah Social</div><p class="muted" style="text-align:center;margin:4px 0 0">${reg?'أنشئ حسابك وابدأ المشاركة':'سجّل دخولك للمتابعة'}</p><form id="af"><input name="username" placeholder="اسم المستخدم" autocomplete="username" required>${reg?'<input name="name" placeholder="الاسم الظاهر">':''}<input name="password" type="password" placeholder="كلمة المرور (8 أحرف على الأقل)" autocomplete="${reg?'new-password':'current-password'}" required><div class="err"></div><button class="btn">${reg?'إنشاء حساب':'دخول'}</button></form><p class="muted" style="text-align:center"><a href="#" id="sw" style="color:var(--ac)">${reg?'لديك حساب؟ سجّل الدخول':'ليس لديك حساب؟ أنشئ حسابًا'}</a></p></div>`;
+$('#sw').onclick=e=>{e.preventDefault();authView(reg?'login':'register')};
+$('#af').onsubmit=async e=>{e.preventDefault();try{await api(reg?'/register':'/login','POST',Object.fromEntries(new FormData(e.target)));boot()}catch(x){$('.err').textContent=x.message}}}
+async function boot(){try{me=(await api('/me')).user;start()}catch{authView()}}
+
+// ---------- shell ----------
+function start(){const N=(i,h,l,c='')=>`<button class="${c}" data-go="${h}" title="${l}">${ic(i)}<span class="lbl">${l}</span></button>`;
+$('#root').innerHTML=`<header class="top"><div class="logo">Salah Social</div><div>${N('bell','#/notifs','الإشعارات')}${N('send','#/messages','الرسائل')}<button data-theme>${ic('moon')}</button></div></header><nav class="nav"><div class="logo dsk" style="padding:0 12px 14px">Salah Social</div>${N('home','#/','الرئيسية')}${N('search','#/explore','استكشاف')}${N('reels','#/reels','ريلز')}<button data-create title="إنشاء">${ic('plus')}<span class="lbl">إنشاء</span></button>${N('bell','#/notifs','الإشعارات','dsk')}${N('send','#/messages','الرسائل','dsk')}${N('user','#/u/'+me.username,'الملف الشخصي')}<button class="dsk" data-theme>${ic('moon')}<span class="lbl">المظهر</span></button></nav><main id="view"></main>`;
+if(me.unread)dot(1);sse();route()}
+const dot=on=>document.querySelectorAll('[data-go="#/notifs"]').forEach(b=>b.classList.toggle('dot',on));
+function sse(){es?.close();es=new EventSource('/api/stream');
+es.addEventListener('notif',()=>dot(1));
+es.addEventListener('msg',e=>{const d=JSON.parse(e.data);
+if(location.hash==='#/messages/'+d.with&&chat.draw)api('/messages/'+d.with).then(r=>chat.draw(r.items));
+else if(location.hash==='#/messages')route();
+else if(d.from!==me.username)toast('رسالة جديدة من '+d.from)})}
+
+const routes=[[/^#\/explore/,explore],[/^#\/reels/,reels],[/^#\/notifs/,notifs],[/^#\/messages\/([\w.]+)/,chat],[/^#\/messages/,inbox],[/^#\/u\/([\w.]+)/,profile],[/^#\/p\/(\d+)/,single],[/^#\/saved/,saved]];
+async function route(){const v=$('#view');if(!v)return;const h=location.hash||'#/';let fn=feed,m=[];
+for(const[r,f]of routes){const x=h.match(r);if(x){fn=f;m=x.slice(1);break}}
+document.querySelectorAll('.nav [data-go]').forEach(b=>b.classList.toggle('on',b.dataset.go==='#/'?h==='#/':h.startsWith(b.dataset.go)));
+if(fn!==chat)scrollTo(0,0);
+try{await fn(v,...m)}catch(e){v.innerHTML=`<p class="muted" style="text-align:center;padding:40px">${esc(e.message)}</p>`}}
+addEventListener('hashchange',route);
+
+// ---------- feed & stories ----------
+async function feed(v){v.innerHTML='<div class="stories" id="sb"></div><div id="fd"></div>';
+const[{posts},{stories}]=await Promise.all([api('/feed'),api('/stories')]);
+$('#fd').innerHTML=posts.length?posts.map(card).join(''):'<div class="box" style="padding:30px;text-align:center"><p>لا توجد منشورات بعد.</p><a class="btn" href="#/explore">اكتشف حسابات لمتابعتها</a></div>';
+const g={};stories.forEach(s=>(g[s.username]??=[]).push(s));const mine=g[me.username];
+$('#sb').innerHTML=`<button class="st" data-st="${esc(me.username)}"><div class="${mine?'ring':''}">${av(me,mine?58:64)}</div><span>${mine?'قصتك':'أضف قصة'}</span></button>`+Object.keys(g).filter(n=>n!==me.username).map(n=>`<button class="st" data-st="${esc(n)}"><div class="ring">${av(g[n][0],58)}</div><span>${esc(n.slice(0,10))}</span></button>`).join('');
+$('#sb').onclick=e=>{const b=e.target.closest('[data-st]');if(!b)return;const n=b.dataset.st;g[n]?viewStory(g[n]):create('story')}}
+function viewStory(items){let i=0,t;const o=document.createElement('div');o.className='sv2';document.body.append(o);
+const close=()=>{clearTimeout(t);o.remove()};
+const show=()=>{clearTimeout(t);if(i>=items.length)return close();const s=items[i];
+o.innerHTML=`<div style="position:absolute;top:calc(10px + env(safe-area-inset-top));inset-inline:10px;display:flex;gap:4px">${items.map((_,k)=>`<i style="flex:1;height:3px;border-radius:2px;background:${k<=i?'#fff':'#fff5'}"></i>`).join('')}</div><button id="sx" style="position:absolute;top:calc(22px + env(safe-area-inset-top));inset-inline-end:10px;color:#fff">${ic('x')}</button>${s.type==='video'?`<video src="${esc(s.media)}" autoplay playsinline></video>`:`<img src="${esc(s.media)}" alt="">`}`;
+const vd=o.querySelector('video');if(vd)vd.onended=()=>{i++;show()};else t=setTimeout(()=>{i++;show()},5000)};
+o.onclick=e=>{if(e.target.closest('#sx'))return close();const r=o.getBoundingClientRect();e.clientX<r.width/2?i++:(i=Math.max(0,i-1));show()};show()}
+
+// ---------- interactions ----------
+document.addEventListener('click',async e=>{
+const g=e.target.closest('[data-go]');if(g){location.hash=g.dataset.go;return}
+if(e.target.closest('[data-theme]'))return setTheme();
+if(e.target.closest('[data-create]'))return create();
+const b=e.target.closest('[data-a]');if(!b)return;const el=b.closest('[data-id]'),id=el.dataset.id,a=b.dataset.a;
+try{
+if(a==='like'||a==='save'){const{post:p}=await api(`/posts/${id}/${a}`,'POST');el.querySelector('.acts').innerHTML=acts(p);const l=el.querySelector('.lk b');if(l)l.textContent=p.likes}
+else if(a==='cmt')comments(id);
+else if(a==='share'){const u=location.origin+'/#/p/'+id;if(navigator.share)navigator.share({url:u}).catch(()=>{});else{await navigator.clipboard.writeText(u);toast('تم نسخ الرابط')}}
+else if(a==='del'&&confirm('حذف هذا المنشور نهائيًا؟')){await api('/posts/'+id,'DELETE');el.remove();toast('تم الحذف')}
+}catch(x){toast(x.message)}});
+
+async function comments(id){const o=modal('<h3 style="margin:0 0 8px">التعليقات</h3><div id="cl"></div><form id="cf" class="row"><input name="text" placeholder="أضف تعليقًا…" required maxlength="500" autocomplete="off"><button class="btn">نشر</button></form>');
+const load=async()=>{const{comments:c}=await api(`/posts/${id}/comments`);$('#cl').innerHTML=c.length?c.map(x=>`<div class="row" style="align-items:flex-start">${av(x)}<div><a href="#/u/${esc(x.username)}" data-close><b>${esc(x.username)}</b>${badge(x.verified)}</a> ${esc(x.text)}<div class="muted">${ago(x.created)}</div></div></div>`).join(''):'<p class="muted">لا توجد تعليقات بعد.</p>'};
+o.addEventListener('click',e=>{if(e.target.closest('[data-close]'))o.remove()});
+await load();$('#cf').onsubmit=async e=>{e.preventDefault();const f=e.target;try{await api(`/posts/${id}/comments`,'POST',{text:f.elements.text.value});f.reset();load()}catch(x){toast(x.message)}}}
+
+function create(mode='post'){const o=modal('<h3 style="margin:0 0 10px">إنشاء</h3><form id="pf" style="display:grid;gap:10px"><select name="kind"><option value="post">منشور / ريل</option><option value="story">قصة (24 ساعة)</option></select><input type="file" name="f" accept="image/*,video/*" required><div id="pv"></div><textarea name="caption" rows="3" maxlength="2000" placeholder="اكتب وصفًا…"></textarea><button class="btn">نشر</button></form>');
+const f=$('#pf');f.elements.kind.value=mode;
+f.elements.f.onchange=()=>{const x=f.elements.f.files[0];if(!x)return;const u=URL.createObjectURL(x);$('#pv').innerHTML=x.type.startsWith('video')?`<video src="${u}" controls style="width:100%;max-height:40vh"></video>`:`<img src="${u}" alt="" style="width:100%;max-height:40vh;object-fit:contain">`};
+f.onsubmit=async e=>{e.preventDefault();const btn=f.querySelector('.btn');btn.disabled=true;btn.textContent='جارٍ الرفع…';
+try{const u=await upload(f.elements.f.files[0]);await api(f.elements.kind.value==='story'?'/stories':'/posts','POST',{media:u.url,type:u.type,caption:f.elements.caption.value});o.remove();toast('تم النشر');route()}
+catch(x){toast(x.message);btn.disabled=false;btn.textContent='نشر'}}}
+
+// ---------- pages ----------
+async function explore(v){v.innerHTML='<input id="sq" placeholder="ابحث عن مستخدمين…" style="margin:0 12px 12px;width:calc(100% - 24px)"><div id="sr" class="box" style="display:none"></div><div id="eg" class="grid"></div>';
+const{posts}=await api('/explore');$('#eg').innerHTML=gridItems(posts);let t;
+$('#sq').oninput=e=>{clearTimeout(t);t=setTimeout(async()=>{const s=e.target.value.trim();if(!s){$('#sr').style.display='none';$('#eg').style.display='';return}
+$('#eg').style.display='none';$('#sr').style.display='';const{users}=await api('/search?q='+encodeURIComponent(s));$('#sr').innerHTML=users.length?users.map(userRow).join(''):'<p class="muted" style="padding:12px">لا نتائج</p>'},250)}}
+
+async function reels(v){const{posts}=await api('/reels');
+v.innerHTML=posts.length?`<div class="reels">${posts.map(p=>`<div class="reel" data-id="${p.id}"><video src="${esc(p.media)}" loop playsinline muted></video><div class="meta"><a href="#/u/${esc(p.username)}"><b>${esc(p.username)}</b>${badge(p.verified)}</a><div>${esc(p.caption)}</div></div><div class="acts">${acts(p)}</div></div>`).join('')}</div>`:'<p class="muted" style="padding:30px;text-align:center">لا توجد ريلز بعد. انشر فيديو لتظهر هنا.</p>';
+const io=new IntersectionObserver(l=>l.forEach(x=>{const vd=x.target.querySelector('video');x.isIntersecting?vd.play().catch(()=>{}):vd.pause()}),{threshold:.7});
+v.querySelectorAll('.reel').forEach(r=>{io.observe(r);const vd=r.querySelector('video');vd.onclick=()=>{vd.muted=!vd.muted}})}
+
+async function notifs(v){const{items}=await api('/notifs');dot(0);const T={like:'أعجب بمنشورك',comment:'علّق على منشورك',follow:'بدأ بمتابعتك'};
+v.innerHTML='<div class="box" style="padding:8px 14px">'+(items.length?items.map(n=>`<a class="row" href="${n.post_id?'#/p/'+n.post_id:'#/u/'+esc(n.username)}">${av(n,44)}<div><b>${esc(n.username)}</b> ${T[n.type]||''}<div class="muted">${ago(n.created)}</div></div></a>`).join(''):'<p class="muted">لا توجد إشعارات.</p>')+'</div>'}
+
+async function inbox(v){chat.draw=null;const{items}=await api('/conversations');
+v.innerHTML=`<input id="mq" placeholder="ابحث عن مستخدم لبدء محادثة…" style="margin:0 12px;width:calc(100% - 24px)"><div id="mr"></div><div class="box" style="margin-top:12px;padding:6px 14px">${items.length?items.map(c=>`<a class="row" href="#/messages/${esc(c.username)}">${av(c,48)}<div style="min-width:0"><b>${esc(c.username)}</b>${badge(c.verified)}<div class="muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:55vw">${esc(c.text)}</div></div><span class="muted" style="margin-inline-start:auto">${ago(c.created)}</span></a>`).join(''):'<p class="muted">لا توجد محادثات بعد.</p>'}</div>`;
+let t;$('#mq').oninput=e=>{clearTimeout(t);t=setTimeout(async()=>{const s=e.target.value.trim();$('#mr').innerHTML=s?(await api('/search?q='+encodeURIComponent(s))).users.map(u=>userRow(u).replace('#/u/','#/messages/')).join(''):''},250)}}
+
+async function chat(v,u){const{user,items}=await api('/messages/'+u);
+v.innerHTML=`<div class="box"><div class="row" style="padding:10px 14px;border-bottom:1px solid var(--bd)"><a href="#/messages" style="font-size:20px">→</a><a href="#/u/${esc(user.username)}" class="row" style="padding:0">${av(user)}<b>${esc(user.username)}</b>${badge(user.verified)}</a></div><div id="cm" class="chat"></div><form id="mf" class="row" style="padding:10px"><input name="text" placeholder="اكتب رسالة…" autocomplete="off" required maxlength="2000"><button class="btn">إرسال</button></form></div>`;
+chat.draw=l=>{$('#cm').innerHTML=l.length?l.map(m=>`<div class="b ${m.mine?'me':''}">${esc(m.text)}</div>`).join(''):'<p class="muted" style="text-align:center">ابدأ المحادثة 👋</p>';scrollTo(0,document.body.scrollHeight)};chat.draw(items);
+$('#mf').onsubmit=async e=>{e.preventDefault();const f=e.target,text=f.elements.text.value;f.reset();try{await api('/messages/'+u,'POST',{text})}catch(x){toast(x.message)}}}
+
+async function profile(v,name){const u=await api('/users/'+name),own=u.username===me.username;
+v.innerHTML=`<div class="box" style="padding:18px"><div class="row" style="gap:18px">${av(u,84)}<div style="flex:1"><div style="font-size:20px;font-weight:700">${esc(u.username)}${badge(u.verified)}</div><div class="row" style="gap:14px;padding:6px 0;flex-wrap:wrap"><span><b>${u.postsCount}</b> منشور</span><button data-l="followers"><b>${u.followers}</b> متابِع</button><button data-l="following"><b>${u.following}</b> يتابع</button></div></div></div><div><b>${esc(u.name)}</b></div><div style="white-space:pre-wrap">${esc(u.bio)}</div><div class="row" id="pa" style="flex-wrap:wrap"></div></div><div id="pg" class="grid"></div>`;
+const pa=$('#pa');
+if(own){pa.innerHTML=`<button class="btn sec" id="ed">تعديل الملف</button>${u.verified?'':'<button class="btn" id="vf">طلب العلامة الزرقاء</button>'}<a class="btn sec" href="#/saved">المحفوظات</a><button class="btn sec" id="lo">خروج</button>`;
+$('#ed').onclick=()=>editProfile(u);if($('#vf'))$('#vf').onclick=verifyModal;
+$('#lo').onclick=async()=>{await api('/logout','POST');es?.close();location.hash='';authView()}}
+else{pa.innerHTML=`<button class="btn ${u.isFollowing?'sec':''}" id="fl">${u.isFollowing?'إلغاء المتابعة':'متابعة'}</button><a class="btn sec" href="#/messages/${esc(u.username)}">رسالة</a>`;
+$('#fl').onclick=async()=>{try{await api(`/users/${u.username}/follow`,'POST');profile(v,name)}catch(x){toast(x.message)}}}
+$('#pg').innerHTML=gridItems(u.posts);
+v.querySelectorAll('[data-l]').forEach(b=>b.onclick=async()=>{const{users}=await api(`/users/${u.username}/follows/${b.dataset.l}`);const o=modal(users.length?users.map(userRow).join(''):'<p class="muted">لا أحد بعد.</p>');o.addEventListener('click',e=>{if(e.target.closest('a'))o.remove()})})}
+
+function editProfile(u){const o=modal(`<h3 style="margin:0 0 10px">تعديل الملف الشخصي</h3><form id="ef" style="display:grid;gap:10px"><div class="row">${av(u,56)}<input type="file" name="f" accept="image/*"></div><input name="name" value="${esc(u.name)}" maxlength="50" placeholder="الاسم"><textarea name="bio" rows="3" maxlength="300" placeholder="نبذة عنك">${esc(u.bio)}</textarea><button class="btn">حفظ</button></form>`);
+$('#ef').onsubmit=async e=>{e.preventDefault();const f=e.target.elements;try{const b={name:f.name.value,bio:f.bio.value};if(f.f.files[0])b.avatar=(await upload(f.f.files[0])).url;me={...me,...(await api('/me','PATCH',b)).user};o.remove();route()}catch(x){toast(x.message)}}}
+
+function verifyModal(){const o=modal('<h3 style="margin:0 0 6px">توثيق الحساب</h3><p class="muted">أدخل كود التوثيق للحصول على العلامة الزرقاء.</p><form id="vfm" style="display:grid;gap:10px"><input name="code" placeholder="كود التوثيق" autocomplete="off" required><div class="err"></div><button class="btn">تأكيد</button></form>');
+$('#vfm').onsubmit=async e=>{e.preventDefault();try{me={...me,...(await api('/verify','POST',{code:e.target.elements.code.value})).user};o.remove();toast('تم توثيق حسابك ✓');route()}catch(x){o.querySelector('.err').textContent=x.message}}}
+
+async function single(v,id){v.innerHTML=card((await api('/posts/'+id)).post)}
+async function saved(v){const{posts}=await api('/saved');v.innerHTML='<h3 style="padding:0 12px">المحفوظات</h3><div class="grid">'+gridItems(posts)+'</div>'}
+
+boot();
+</script>
+</body>
+</html>
